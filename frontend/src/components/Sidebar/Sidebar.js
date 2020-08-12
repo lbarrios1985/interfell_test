@@ -83,7 +83,7 @@ export default function Sidebar(props) {
   var brand = (
     <div className={classes.logo}>
       <a
-        href="https://www.itcrowdarg.com/"
+        href="https://interfell.com/"
         className={classNames(classes.logoLink, {
           [classes.logoLinkRTL]: props.rtlActive
         })}
@@ -92,7 +92,7 @@ export default function Sidebar(props) {
         <div className={classes.logoImage}>
           <img src={logo} alt="logo" className={classes.img} />
         </div>
-        ITCROWD
+        INTERFELL
       </a>
     </div>
   );

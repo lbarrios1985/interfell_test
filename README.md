@@ -10,11 +10,11 @@
 
     Salir del modo super usuario
 
-## 2-) Descargar el codigo fuente del proyecto api-luis-barrios-itcrowd :
+## 2-) Descargar el codigo fuente del proyecto interfell_test :
 
-    Para descargar el código fuente del proyecto contenido en su repositorio GIT realice un clon del proyecto api-luis-barrios-itcrowd:
+    Para descargar el código fuente del proyecto contenido en su repositorio GIT realice un clon del proyecto interfell_test:
 
-    $ git clone https://github.com/lbarrios1985/api-luis-barrios-itcrowd.git
+    $ git clone https://github.com/lbarrios1985/interfell_test.git
 
 ## 3-) Backend:
 
@@ -30,51 +30,51 @@
 
     Salir del modo root y crear el ambiente:
 
-    $ mkvirtualenv --python=/usr/bin/python3 itcrowd
+    $ mkvirtualenv --python=/usr/bin/python3 interfell
 
 ### 3.2-) Instalar los requerimientos del proyecto:
 
-    Para activar el ambiente virtual itcrowd ejecute el siguiente comando:
+    Para activar el ambiente virtual interfell ejecute el siguiente comando:
 
-    $ workon itcrowd
+    $ workon interfell
 
     Con el comando anterio se activa el ambiente virtual quedando de la siguiente manera:
 
-    (itcrowd)$
+    (interfell)$
 
     Entrar en la carpeta raiz del proyecto:
 
-    (itcrowd)$ cd api-luis-barrios-itcrowd/backend
+    (interfell)$ cd interfell_test/backend
 
-    (itcrowd)api-luis-barrios-itcrowd/backend$
+    (interfell)interfell_test/backend$
 
     Desde ahi se deben instalar los requirimientos del proyecto con el siguiente comando:
 
-    (itcrowd)$ pip install -r requirements.txt
+    (interfell)$ pip install -r requirements.txt
 
     De esta manera se instalaran todos los requerimientos iniciales para montar el proyecto
 
 ### 3.3-) Crear base de datos y Migrar los modelos:
 
-    Para migrar los modelos del proyecto se debe  ingresar a la raiz del proyecto api-luis-barrios-itcrowd y usar el siguiente comando:
+    Para migrar los modelos del proyecto se debe  ingresar a la raiz del proyecto interfell_test y usar el siguiente comando:
 
-    (itcrowd)$ python manage.py makemigrations
+    (interfell)$ python manage.py makemigrations
 
-    (itcrowd)$ python manage.py migrate
+    (interfell)$ python manage.py migrate
 
 ### 3.4-) Crear un usuario para poder loguearse:
 
     Para poder registrar un usuario usar el siguiente comando:
 
-    (itcrowd)$ python manage.py createsuperuser
+    (interfell)$ python manage.py createsuperuser
 
     este es el usuario par poder ingresar en la plataforma 
 
-### 3.5-) Iniciar la aplicacion (Backend) api-luis-barrios-itcrowd:
+### 3.5-) Iniciar la aplicacion (Backend) interfell_test:
 
     Para iniciar la apliacion se debe  ejecutar el siguiente comando:
 
-    (itcrowd)$ python manage.py runserver
+    (interfell)$ python manage.py runserver
 
     Ingresar a la plataforma en la ruta: localhost:8000
 
@@ -84,19 +84,19 @@
 
     Entrar en la carpeta raiz del proyecto:
 
-    cd  api-luis-barrios-itcrowd/frontend
+    cd  interfell_test/frontend
 
     Desde ahi se deben instalar los requirimientos del proyecto con el siguiente comando:
 
-    api-luis-barrios-itcrowd/frontend$ npm install
+    interfell_test/frontend$ npm install
 
     De esta manera se instalaran todos los requerimientos iniciales para montar el proyecto
 
-### 4.2-) Iniciar la aplicacion (Frontend) api-luis-barrios-itcrowd:
+### 4.2-) Iniciar la aplicacion (Frontend) interfell_test:
 
     Para iniciar la apliacion se debe  ejecutar el siguiente comando:
 
-    api-luis-barrios-itcrowd/frontend$ npm start
+    interfell_test/frontend$ npm start
 
     Ingresar a la plataforma en la ruta: localhost:3000
 

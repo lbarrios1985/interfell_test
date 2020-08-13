@@ -21,6 +21,8 @@ const useStyles = makeStyles(styles);
 
 export default function Sidebar(props) {
   const classes = useStyles();
+  const isAuthenticated = localStorage.getItem('token') || null
+
   // verifies if routeName is the one active (in browser input)
   function activeRoute(routeName) {
     return window.location.href.indexOf(routeName) > -1 ? true : false;
@@ -95,7 +97,24 @@ export default function Sidebar(props) {
         INTERFELL
       </a>
     </div>
-  );
+  )
+  var logout = (
+    <a
+      href="#"
+      className={classNames(classes.logoLink, {
+        [classes.logoLinkRTL]: props.rtlActive
+      })}
+      onClick={ () => logOut() }
+    >
+      Logout
+    </a>
+  )
+
+  const logOut = () => {
+    localStorage.removeItem("token")
+    window.location.replace("/admin/login")
+  }
+
   return (
     <div>
       <Hidden mdUp implementation="css">
@@ -124,6 +143,13 @@ export default function Sidebar(props) {
               style={{ backgroundImage: "url(" + image + ")" }}
             />
           ) : null}
+          {
+            isAuthenticated && (
+              <div className={classes.sidebarWrapper}>
+                { logout }
+              </div>
+            )
+          }
         </Drawer>
       </Hidden>
       <Hidden smDown implementation="css">
@@ -145,6 +171,11 @@ export default function Sidebar(props) {
               style={{ backgroundImage: "url(" + image + ")" }}
             />
           ) : null}
+          {
+            isAuthenticated && (
+              <div className={classes.sidebarWrapper}>{logout}</div>
+            )
+          }
         </Drawer>
       </Hidden>
     </div>

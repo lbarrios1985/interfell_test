@@ -17,11 +17,10 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 
-// Movie
-import Movie from "views/Movies/Movie"
-import MovieDetail from "views/Movies/MovieDetail"
-import Person from "views/Persons/Person";
-import PersonDetail from "views/Persons/PersonDetail";
+// Components
+import ConfirmPayment from "views/Payment/ConfirmPayment"
+import Client from "views/Client/Client.js"
+
 
 let ps;
 
@@ -42,39 +41,21 @@ const switchRoutes = (
     })}
     <Route
       exact
-      path={"/admin/create-movie"}
-      component={Movie}
-      key={"/admin/create-movie"}
+      path={"/admin/confirmation/:token"}
+      component={ConfirmPayment}
+      key={"/admin/confirmation/:token"}
     />
     <Route
       exact
-      path={"/admin/movie/:id"}
-      component={MovieDetail}
-      key={"/admin/movie/:id"}
+      path={"/admin/client/create"}
+      component={Client}
+      key={"/admin/client/create"}
     />
     <Route
       exact
-      path={"/admin/movie/edit/:id"}
-      component={Movie}
-      key={"/admin/movie/edit/:id"}
-    />
-    <Route
-      exact
-      path={"/admin/create-person"}
-      component={Person}
-      key={"/admin/create-person"}
-    />
-    <Route
-      exact
-      path={"/admin/person/:id"}
-      component={PersonDetail}
-      key={"/admin/person/:id"}
-    />
-    <Route
-      exact
-      path={"/admin/person/edit/:id"}
-      component={Person}
-      key={"/admin/person/edit/:id"}
+      path={"/admin/client/edit/:id"}
+      component={Client}
+      key={"/admin/client/edit/:id"}
     />
     <Redirect from="/admin" to="/admin/dashboard" />
   </Switch>

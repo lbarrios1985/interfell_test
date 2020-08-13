@@ -16,41 +16,57 @@
 
 */
 // @material-ui/icons
-import GroupIcon from '@material-ui/icons/Group';
-import MovieIcon from '@material-ui/icons/Movie';
-import LockOpenIcon from '@material-ui/icons/LockOpen'
+import { LockOpen, AccountBalanceWallet, AccountBalance, PersonAdd } from '@material-ui/icons'
 // Login
-import Login from "views/Login/Login.js";
-// Person
-import Persons from "views/Persons/"
-// Movies
-import Movies from "views/Movies/"
+import Login from "views/Login/Login.js"
+// Client
+import Client from "views/Client/index.js"
+// Wallet
+import Wallet from "views/Wallet/index.js"
+// Payment
+import Payment from "views/Payment/index.js"
 
-const dashboardRoutes = [
-  {
-    path: "/login",
-    name: "Login",
-    rtlName: "لوحة القيادة",
-    icon: LockOpenIcon,
-    component: Login,
-    layout: "/admin",
-  },
-  {
-    path: "/persons",
-    name: "Persons",
-    rtlName: "لوحة القيادة",
-    icon: GroupIcon,
-    component: Persons,
-    layout: "/admin",
-  },
-  {
-    path: "/movie",
-    name: "Movies",
-    rtlName: "قائمة الجدول",
-    icon: MovieIcon,
-    component: Movies,
-    layout: "/admin",
-  }
-];
+const isAuthenticated = localStorage.getItem('token') || null
+let dashboardRoutes = []
+
+if(isAuthenticated){
+  dashboardRoutes = [
+    {
+      path: "/clients",
+      name: "Client",
+      rtlName: "لوحة القيادة",
+      icon: PersonAdd,
+      component: Client,
+      layout: "/admin",
+    },
+    {
+      path: "/wallet",
+      name: "Wallet",
+      rtlName: "لوحة القيادة",
+      icon: AccountBalanceWallet,
+      component: Wallet,
+      layout: "/admin",
+    },
+    {
+      path: "/payment",
+      name: "Payment",
+      rtlName: "لوحة القيادة",
+      icon: AccountBalance,
+      component: Payment,
+      layout: "/admin",
+    },
+  ]
+} else {
+  dashboardRoutes = [
+    {
+      path: "/login",
+      name: "Login",
+      rtlName: "لوحة القيادة",
+      icon: LockOpen,
+      component: Login,
+      layout: "/admin",
+    },
+  ]
+}
 
 export default dashboardRoutes;

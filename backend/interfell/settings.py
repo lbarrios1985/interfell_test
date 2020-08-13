@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'clients',
+    'wallet',
 ]
 
 MIDDLEWARE = [
@@ -152,3 +154,7 @@ REST_FRAMEWORK = {
     'UNICODE_JSON': True,
     # 'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+FRONTEND_URL = "http://localhost:3000/"

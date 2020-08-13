@@ -4,11 +4,13 @@ from django.db import transaction
 from django.contrib.auth.models import User
 
 from .models import Client
+from wallet.models import Wallet
 
 class UserSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = User
+    write_only_fields = ["password"]
     fields = ('first_name', 'last_name', 'email','password')
 
 
@@ -30,5 +32,8 @@ class ClientSerializer(serializers.ModelSerializer):
       user_created.email = user['email']
       user_created.set_password(user['password'])
       user_created.save()
+      Wallet.objects.create(
+        user = user_created
+      )
       client = Client.objects.create(**validated_data,user=user_created)
     return client

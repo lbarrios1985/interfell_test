@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 from django.utils.crypto import get_random_string
 
 from .models import Wallet, Movement, ConfirmTransaction
+from clients.models import Client
 
 class WalletSerializer(serializers.ModelSerializer):
   class Meta:
@@ -23,6 +24,11 @@ class FormPaymentSerializer(serializers.Serializer):
   def create(self, validated_data):
     user = self.context['user']
     wallet = Wallet.objects.filter(user=user).first()
+    client = Client.objects.filter(user=user).first()
+    if(validated_data['document'] != client.document):
+      raise serializers.ValidationError({"non_field_errors":["Invalid document number"]})
+    if(validated_data['phone'] != client.phone):
+      raise serializers.ValidationError({"non_field_errors":["Invalid phone number"]})
     Movement.objects.create(
       wallet = wallet,
       amount = validated_data["amount"],
@@ -31,13 +37,21 @@ class FormPaymentSerializer(serializers.Serializer):
     wallet.amount += validated_data["amount"]
     wallet.save()
     return validated_data
-    #raise serializers.ValidationError("")
 
 class BalanceSerializer(serializers.Serializer):
 
   document = serializers.CharField(max_length=20)
 
   phone = serializers.CharField(max_length=20)
+
+  def validate(self, data):
+    user = self.context['user']
+    client = Client.objects.filter(user=user).first()
+    if(data['document'] != client.document):
+      raise serializers.ValidationError("Invalid document number")
+    if(data['phone'] != client.phone):
+      raise serializers.ValidationError("Invalid phone number")
+    return data
 
 class SendPaymentSerializer(serializers.Serializer):
 

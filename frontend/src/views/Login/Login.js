@@ -1,55 +1,60 @@
 import React, { useState, useEffect } from "react"
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import Grid from '@material-ui/core/Grid'
-import Box from '@material-ui/core/Box'
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import { Formik } from 'formik'
+import * as Yup from 'yup'
+import isEmpty from 'lodash.isempty'
+
+// Material Ui Graphics
+import { Grid, Box, TextField, Button } from '@material-ui/core'
+import Alert from '@material-ui/lab/Alert'
+
+// 3rd party
 import axios from 'axios'
+
+// Utils
+import config from "utils/config"
 
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 const isAuthenticated = localStorage.getItem('token') || null
 
-const API_HOST = 'http://localhost:8000';
 
 const SignUpSchema = Yup.object().shape({
   username: Yup.string().required('Username Required'),
   password: Yup.string().required('Password Required')
 });
 
-async function loginPost(values) {
-
-  var bodyFormData = new FormData();
-  bodyFormData.set('username', values.username);
-  bodyFormData.set('password', values.password);
-  axios({
-    method: 'post',
-    url: `${API_HOST}/api-token-auth/`,
-    data: bodyFormData,
-    headers: { 'Content-Type': 'multipart/form-data' }
-  })
-    .then(function (response) {
-      //handle success
-      console.log(response.data.token);
-      localStorage.setItem('token', response.data.token);
-    })
-    .catch(function (response) {
-      //handle error
-      console.log(response);
-    });
-}
 
 const Login = () => {
   const [token, setToken] = useState(false)
+  const [error, setError] = useState(false)
 
-
+  // Effects
   useEffect(() => {
     if (isAuthenticated !== null) {
       setToken(true)
     }
   }, [isAuthenticated])
+
+  // Functions
+  const loginPost = (values) => {
+    axios({
+      method: 'post',
+      url: `${config.API_HOST}/api-token-auth/`,
+      data: {... values},
+    })
+    .then(function (response) {
+      localStorage.setItem('token', response.data.token)
+      window.location.replace("/admin")
+    })
+    .catch(function (error) {
+      if(error.response.data.non_field_errors){
+        setError(error.response.data.non_field_errors[0])
+      } else {
+        setError(error.response.statusText)
+      }
+    })
+  }
 
   return (
 
@@ -77,6 +82,13 @@ const Login = () => {
             render={({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
               <form onSubmit={handleSubmit}>
                 <Grid container spacing={1}>
+                  <Grid item xs={12} sm={12}>
+                  {
+                    !isEmpty(error) && (
+                      <Alert severity="error">{error}</Alert>
+                    )
+                  }
+                  </Grid>
                   <Grid item xs={12} sm={12}>
                     <TextField
                       error={errors.username ? true : false}

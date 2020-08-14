@@ -11,6 +11,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
+import LockIcon from '@material-ui/icons/Lock';
 // core components
 import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.js";
 import RTLNavbarLinks from "components/Navbars/RTLNavbarLinks.js";
@@ -63,12 +64,12 @@ export default function Sidebar(props) {
                   {prop.icon}
                 </Icon>
               ) : (
-                <prop.icon
-                  className={classNames(classes.itemIcon, whiteFontClasses, {
-                    [classes.itemIconRTL]: props.rtlActive
-                  })}
-                />
-              )}
+                  <prop.icon
+                    className={classNames(classes.itemIcon, whiteFontClasses, {
+                      [classes.itemIconRTL]: props.rtlActive
+                    })}
+                  />
+                )}
               <ListItemText
                 primary={props.rtlActive ? prop.rtlName : prop.name}
                 className={classNames(classes.itemText, whiteFontClasses, {
@@ -99,15 +100,26 @@ export default function Sidebar(props) {
     </div>
   )
   var logout = (
-    <a
-      href="#"
-      className={classNames(classes.logoLink, {
-        [classes.logoLinkRTL]: props.rtlActive
-      })}
-      onClick={ () => logOut() }
-    >
-      Logout
-    </a>
+    <List className={classes.list}>
+      <a
+        href="#"
+        className={classNames(classes.logoLink, {
+          [classes.logoLinkRTL]: props.rtlActive
+        })}
+        onClick={() => logOut()}
+      >
+        <ListItem button >
+          <LockIcon
+            className={classNames(classes.itemIcon)}
+          />
+          <ListItemText
+            primary="logout"
+            className={classNames(classes.itemText)}
+            disableTypography={true}
+          />
+        </ListItem>
+      </a>
+    </List>
   )
 
   const logOut = () => {
@@ -146,7 +158,7 @@ export default function Sidebar(props) {
           {
             isAuthenticated && (
               <div className={classes.sidebarWrapper}>
-                { logout }
+                {logout}
               </div>
             )
           }

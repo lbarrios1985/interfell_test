@@ -104,6 +104,7 @@ const Client = ({ history, match }) => {
         email: data.email,
         first_name: data.first_name,
         last_name: data.last_name,
+        password:"UPDATE"
       }
     }
     axios.put(`${config.API_HOST}/clients/${id}/`, client, { headers: { 'Authorization': `Token ${isAuthenticated}` } }).then(result => {

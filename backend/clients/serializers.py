@@ -36,7 +36,7 @@ class ClientSerializer(serializers.ModelSerializer):
             Wallet.objects.create(
                 user=user_created
             )
-            client = Client.objects.update_or_create(
+            client = Client.objects.create(
                 **validated_data, user=user_created)
         return client
 
